@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e15db1f012520104b9895c4945880f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugStartSceneType: 0
+  debugStartSceneType: -1
 --- !u!114 &1883623104961834116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d510ddefe94735a4dbaafd1ef8fefdbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRecordCount: 5
 --- !u!114 &3641872238201969207
 MonoBehaviour:
   m_ObjectHideFlags: 0

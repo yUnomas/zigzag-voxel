@@ -19,7 +19,7 @@ public class BootManager : SceneManagerBase<BootManager>
     {
 #if UNITY_EDITOR
         // デバッグ開始
-        if (debugStartSceneType != SceneType.Boot || debugStartSceneType != SceneType.None)
+        if (debugStartSceneType != SceneType.None && debugStartSceneType != SceneType.Boot)
         {
             ChangeScene(debugStartSceneType, false, "GameplayScene");
             return;

@@ -12,13 +12,14 @@ public class PlayerMovement : ModuleBase<PlayerController>
     [SerializeField] private EffectController directionChangeFX;
     [SerializeField] private TrailRenderer moveTrajectoryFX;
     [SerializeField] private GameObject moveIndicateAnimation;
+    [SerializeField] private PlayerAnimation anim;
 
     /// <summary>
     /// 左右への加速度    </summary>
     private float externalHorizontalSpeed;
     /// <summary>
     /// 移動方向    </summary>
-    private float direction = 1f;
+    private int direction = 1;
 
     public override void Activate()
     {
@@ -89,6 +90,7 @@ public class PlayerMovement : ModuleBase<PlayerController>
                 }
                 break;
         }
+        anim.Turn(direction);
         AudioManager.Instance.PlaySE("PlayerChangeDirection");
     }
 

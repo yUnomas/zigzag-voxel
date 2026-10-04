@@ -46,4 +46,13 @@ public class EffectController : MonoBehaviour
     {
         effect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
+
+    public virtual void SetMaterial(Material newMaterial)
+    {
+        var particleRenderer = effect.GetComponent<ParticleSystemRenderer>();
+        if (particleRenderer != null)
+        {
+            particleRenderer.material = newMaterial;
+        }
+    }
 }

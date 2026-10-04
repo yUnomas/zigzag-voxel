@@ -3,7 +3,8 @@
 public class PlayerController : ControllerBase
 {
     [SerializeField]
-    private GameObject model;
+    private ModelBase model;
+    public ModelBase Model => model;
     [SerializeField]
     private Collider[] colliders;
 
@@ -44,7 +45,7 @@ public class PlayerController : ControllerBase
                 {
                     Debug.Log("死亡処理の開始");
                     SetActive(false);
-                    model.SetActive(false); // モデルを非表示
+                    model.Hide();
                 }
                 break;
             case PlayerState.Death:
@@ -57,7 +58,7 @@ public class PlayerController : ControllerBase
             case PlayerState.Revive:
                 {
                     Debug.Log("復活");
-                    model.SetActive(true);  // モデルを表示
+                    model.Show();
                     GetComponent<PlayerRevive>().Revive();
                 }
                 break;

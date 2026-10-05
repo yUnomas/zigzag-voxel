@@ -24,7 +24,7 @@ public class PlayerDeath : ModuleBase<PlayerController>
             case DeathType.Default:
                 {
                     // エフェクト・SEの再生
-                    shatterFX.SetMaterial(controller.Model.MainMaterial);
+                    shatterFX.SetMaterial(controller.Model.Current.mainMaterial);
                     shatterFX.Play();
                     AudioManager.Instance.PlaySE("PlayerShatter", false);
                 }

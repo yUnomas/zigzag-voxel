@@ -3,8 +3,8 @@
 public class PlayerController : ControllerBase
 {
     [SerializeField]
-    private ModelBase model;
-    public ModelBase Model => model;
+    private ModelController model;
+    public ModelController Model => model;
     [SerializeField]
     private Collider[] colliders;
 

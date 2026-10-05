@@ -12,7 +12,6 @@ public class PlayerMovement : ModuleBase<PlayerController>
     [SerializeField] private EffectController directionChangeFX;
     [SerializeField] private TrailRenderer moveTrajectoryFX;
     [SerializeField] private GameObject moveIndicateAnimation;
-    [SerializeField] private PlayerAnimation anim;
 
     /// <summary>
     /// 左右への加速度    </summary>
@@ -90,7 +89,7 @@ public class PlayerMovement : ModuleBase<PlayerController>
                 }
                 break;
         }
-        anim.Turn(direction);
+        controller.Model.Turn(direction);
         AudioManager.Instance.PlaySE("PlayerChangeDirection");
     }
 

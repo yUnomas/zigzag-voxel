@@ -4,6 +4,7 @@ public class TitleUIController : UIControllerBase
 {
     [SerializeField] private SettingsUIController settingsUI;
     [SerializeField] private RankingUIController rankingUI;
+    [SerializeField] private PlayerController player;
 
     /// <summary>
     /// 開始ボタンが押された際のイベント    </summary>
@@ -38,5 +39,9 @@ public class TitleUIController : UIControllerBase
     {
         rankingUI.Hide();
         Show();
+    }
+    public void SwitchPlayerSkin()
+    {
+        player.Model.SwitchNext();
     }
 }

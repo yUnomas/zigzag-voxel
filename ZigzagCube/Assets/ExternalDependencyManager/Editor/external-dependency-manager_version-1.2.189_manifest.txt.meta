@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6604ff9b6389d47f8937323a3efee062
+guid: 98fd6d15964d47bfa8a2d90e75bfb538
 labels:
 - gvh
 - gvh_manifest
-- gvh_version-1.2.187
-- gvhp_exportpath-ExternalDependencyManager/Editor/external-dependency-manager_version-1.2.187_manifest.txt
+- gvh_version-1.2.189
+- gvhp_exportpath-ExternalDependencyManager/Editor/external-dependency-manager_version-1.2.189_manifest.txt
 - gvhp_manifestname-0External Dependency Manager
 - gvhp_manifestname-play-services-resolver
 timeCreated: 1474401009
@@ -18,6 +18,6 @@ AssetOrigin:
   productId: 140137
   packageName: Essential Kit Lite for Mobile & TV - Sharing, Rate My App, Shortcuts
     & More
-  packageVersion: 3.7.4
-  assetPath: Assets/ExternalDependencyManager/Editor/external-dependency-manager_version-1.2.187_manifest.txt
-  uploadId: 891732
+  packageVersion: 3.7.5
+  assetPath: Assets/ExternalDependencyManager/Editor/external-dependency-manager_version-1.2.189_manifest.txt
+  uploadId: 990956

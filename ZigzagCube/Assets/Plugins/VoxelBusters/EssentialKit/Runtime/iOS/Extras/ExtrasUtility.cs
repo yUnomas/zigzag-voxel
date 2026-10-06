@@ -23,7 +23,7 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.iOS
         internal static InfoForAgeCompliance From(NativeInfoForAgeComplianceData nativeData)
         {
             AgeRange range = new AgeRange(nativeData.UserAgeRange.LowerBound, nativeData.UserAgeRange.UpperBound);
-            var info = new InfoForAgeCompliance(range, nativeData.UserAgeRangeDeclarationMethod);
+            var info = new InfoForAgeCompliance(range, nativeData.AgeSharingStatus, nativeData.UserAgeRangeDeclarationMethod);
             return info;
         }
 
@@ -32,6 +32,7 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.iOS
             var nativeMockData = new NativeAgeComplianceMockData
             {
                 AgeRange = mockData == null ? new AgeRange(-1, -1) : mockData.AgeRange,
+                AgeSharingStatus = mockData == null ? AgeSharingStatus.Unknown : mockData.AgeSharingStatus,
                 AgeRangeDeclarationMethod = mockData == null ? AgeRangeDeclarationMethod.Unknown : mockData.AgeRangeDeclarationMethod
             };
 

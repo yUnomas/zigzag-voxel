@@ -25,7 +25,7 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.iOS
 
         public override void OpenAppStorePage(string applicationId)
         {
-            string storeURL = string.Format("itms-apps://itunes.apple.com/app/id{0}?action=write-review", applicationId);
+            string storeURL = string.Format("itms-apps://itunes.apple.com/app/id{0}", applicationId);
             Application.OpenURL(storeURL);
         }
 

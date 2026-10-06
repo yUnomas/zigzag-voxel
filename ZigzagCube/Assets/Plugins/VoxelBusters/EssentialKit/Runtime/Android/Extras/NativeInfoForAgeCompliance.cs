@@ -22,7 +22,7 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.Android
         public NativeInfoForAgeCompliance(NativeAndroidJavaObjectWrapper wrapper) : base(wrapper)
         {
         }
-        public NativeInfoForAgeCompliance(NativeAgeRange userAgeRange, NativeAgeRangeDeclarationMethod userAgeRangeDeclarationMethod) : base(Native.kClassName ,(object)userAgeRange.NativeObject, (object)userAgeRangeDeclarationMethod)
+        public NativeInfoForAgeCompliance(NativeAgeRange userAgeRange, NativeAgeSharingStatus status, NativeAgeRangeDeclarationMethod userAgeRangeDeclarationMethod) : base(Native.kClassName ,(object)userAgeRange.NativeObject, (object)status, (object)userAgeRangeDeclarationMethod)
         {
         }
 
@@ -46,6 +46,12 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.Android
         #endregion
         #region Public methods
 
+        public NativeAgeSharingStatus GetAgeSharingStatus()
+        {
+            AndroidJavaObject nativeObj = Call<AndroidJavaObject>(Native.Method.kGetAgeSharingStatus);
+            NativeAgeSharingStatus data  = NativeAgeSharingStatusHelper.ReadFromValue(nativeObj);
+            return data;
+        }
         public NativeAgeRange GetUserAgeRange()
         {
             AndroidJavaObject nativeObj = Call<AndroidJavaObject>(Native.Method.kGetUserAgeRange);
@@ -67,6 +73,7 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.Android
 
             internal class Method
             {
+                internal const string kGetAgeSharingStatus = "getAgeSharingStatus";
                 internal const string kGetUserAgeRange = "getUserAgeRange";
                 internal const string kGetUserAgeRangeDeclarationMethod = "getUserAgeRangeDeclarationMethod";
             }

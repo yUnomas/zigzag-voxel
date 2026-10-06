@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace VoxelBusters.EssentialKit
@@ -13,19 +14,31 @@ namespace VoxelBusters.EssentialKit
         public AgeRange UserAgeRange { get; private set; }
 
         /// <summary>
+        /// The age sharing status of the user
+        /// </summary>
+        public AgeSharingStatus AgeSharingStatus { get; private set; }
+
+        /// <summary>
         /// The age range declaration method. See <see cref="AgeRangeDeclarationMethod"/> for possible values
         /// </summary>
         public AgeRangeDeclarationMethod UserAgeRangeDeclarationMethod { get; private set; }
 
+        [Obsolete("Use the constructor with AgeSharingStatus instead", true)]
         public InfoForAgeCompliance(AgeRange userAgeRange, AgeRangeDeclarationMethod userAgeRangeDeclarationMethod)
         {
             UserAgeRange = userAgeRange;
             UserAgeRangeDeclarationMethod = userAgeRangeDeclarationMethod;
         }
 
+        public InfoForAgeCompliance(AgeRange userAgeRange, AgeSharingStatus ageSharingStatus, AgeRangeDeclarationMethod userAgeRangeDeclarationMethod)
+        {
+            UserAgeRange = userAgeRange;
+            AgeSharingStatus = ageSharingStatus;
+            UserAgeRangeDeclarationMethod = userAgeRangeDeclarationMethod;
+        }
         public override string ToString()
         {
-            return string.Format("[UserAgeRange={0}, UserAgeRangeDeclarationMethod={1}]", UserAgeRange, UserAgeRangeDeclarationMethod);
+            return string.Format("[UserAgeRange={0}, AgeSharingStatus={1}, UserAgeRangeDeclarationMethod={2}]", UserAgeRange, AgeSharingStatus, UserAgeRangeDeclarationMethod);
         }
     }
 }

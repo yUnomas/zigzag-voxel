@@ -40,11 +40,11 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.Simulator
 
             if (mockData == null)
             {
-                onComplete(new InfoForAgeCompliance(new AgeRange(0, 100), AgeRangeDeclarationMethod.DeclaredBySelf), null);
+                onComplete(new InfoForAgeCompliance(new AgeRange(0, 100), AgeSharingStatus.Unknown, AgeRangeDeclarationMethod.Unknown), null);
             }
             else
             {
-                InfoForAgeCompliance infoForAgeCompliance = new InfoForAgeCompliance(mockData.AgeRange, mockData.AgeRangeDeclarationMethod);
+                InfoForAgeCompliance infoForAgeCompliance = new InfoForAgeCompliance(mockData.AgeRange, mockData.AgeSharingStatus, mockData.AgeRangeDeclarationMethod);
                 onComplete(infoForAgeCompliance, null);
             }
         }

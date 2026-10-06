@@ -27,7 +27,7 @@ namespace VoxelBusters.EssentialKit.Editor.Build.Android
 		private static readonly string AndroidXCoreShortcutsVersionString 		= "1.0.0+";
 		private static readonly string AndroidXLifecycleProcessVersionString 	= "2.5.1+";
 
-		private static readonly string PlayAgeSignalsVersionString 				= "0.0.2";
+		private static readonly string PlayAgeSignalsVersionString 				= "0.0.4";
 
 		/// <summary>
 		/// Initializes static members of the <see cref="AndroidLibraryDependenciesGenerator"/> class.
@@ -129,6 +129,15 @@ namespace VoxelBusters.EssentialKit.Editor.Build.Android
 							//AndroidX AppLifecycle Process library
 							androidXDependency	= new AndroidDependency("androidx.lifecycle", "lifecycle-process", AndroidXLifecycleProcessVersionString);
 							WritePackageDependency(xmlWriter, androidXDependency);
+
+#if !UNITY_6000_0_OR_NEWER
+							var KotlinVersionString = "1.8.22";
+							androidXDependency = new AndroidDependency("org.jetbrains.kotlin", "kotlin-stdlib-jdk7", KotlinVersionString);
+							WritePackageDependency(xmlWriter, androidXDependency);
+
+							androidXDependency = new AndroidDependency("org.jetbrains.kotlin", "kotlin-stdlib-jdk8", KotlinVersionString);
+							WritePackageDependency(xmlWriter, androidXDependency);
+#endif
 						}
 						xmlWriter.WriteEndElement();
 					}

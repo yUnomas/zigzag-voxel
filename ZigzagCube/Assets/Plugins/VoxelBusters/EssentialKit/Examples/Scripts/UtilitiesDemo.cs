@@ -57,7 +57,7 @@ namespace VoxelBusters.EssentialKit.Demo
                     Utilities.RequestInfoForAgeCompliance(options, OnInfoForAgeCompliance);
 
                     //With Mock Data
-                    //Utilities.RequestInfoForAgeCompliance(options, OnInfoForAgeCompliance, new AgeComplianceMockData(new AgeRange(0, 10), AgeRangeDeclarationMethod.DeclaredBySelf));
+                    //Utilities.RequestInfoForAgeCompliance(options, OnInfoForAgeCompliance, new AgeComplianceMockData(new AgeRange(0, 10), AgeSharingStatus.Shared, AgeRangeDeclarationMethod.DeclaredBySelf));
                     break;
 
                 case UtilitiesDemoActionType.ResourcePage:
@@ -75,23 +75,33 @@ namespace VoxelBusters.EssentialKit.Demo
             if (error == null)
             {
                 Log($"{result}");
-                if (result.UserAgeRangeDeclarationMethod == AgeRangeDeclarationMethod.NotApplicable)
+                if (result.AgeSharingStatus == AgeSharingStatus.Unknown)
+                {
+                    Log("Age sharing status is not known.");
+                }
+                else
+                {
+                    Log("Age sharing status: " + result.AgeSharingStatus);
+                }
+
+                if (result.AgeSharingStatus == AgeSharingStatus.NotApplicable)
                 {
                     Log("User is in a region where age compliance is not required. Just proceed as if there are no age compliance requirements.");
                 }
                 else
                 {
-                    Log("User is in a region where age compliance is required.");
+                    Log("User is in a region where age compliance is may or may not be required.");
                     Log("User age range: " + result.UserAgeRange);
+                    Log("User age sharing status: " + result.AgeSharingStatus);
                     Log("User age range declaration method: " + result.UserAgeRangeDeclarationMethod);
 
-                    if (result.UserAgeRangeDeclarationMethod == AgeRangeDeclarationMethod.NotDeclared || result.UserAgeRangeDeclarationMethod == AgeRangeDeclarationMethod.Unknown)
+                    if (result.AgeSharingStatus == AgeSharingStatus.Shared)
+                    {
+                        Log("Consider User has declared the age range and block the age sensitive content based on the Age Range({result.UserAgeRange}) declared.");
+                    }
+                    else if(result.AgeSharingStatus == AgeSharingStatus.NotShared || result.AgeSharingStatus == AgeSharingStatus.Unknown || result.AgeSharingStatus == AgeSharingStatus.VerificationPending)
                     {
                         Log("Consider User has not declared the age range and block the age sensitive content considering the user is not adult.");
-                    }
-                    else
-                    {
-                        Log($"Consider User has declared the age range and block the age sensitive content based on the Age Range({result.UserAgeRange}) declared.");
                     }
                 }
             }

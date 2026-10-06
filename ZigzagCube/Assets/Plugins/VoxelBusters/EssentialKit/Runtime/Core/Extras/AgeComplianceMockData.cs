@@ -1,3 +1,5 @@
+using System;
+
 namespace VoxelBusters.EssentialKit
 {
     /// <summary>
@@ -10,6 +12,8 @@ namespace VoxelBusters.EssentialKit
         /// </summary>
         public AgeRange AgeRange { get; private set; }
 
+        public AgeSharingStatus AgeSharingStatus { get; private set; }
+
         /// <summary>
         /// The age range declaration method to mock
         /// </summary>
@@ -21,9 +25,17 @@ namespace VoxelBusters.EssentialKit
         /// </summary>
         /// <param name="ageRange"></param>
         /// <param name="ageRangeDeclarationMethod"></param>
+        [Obsolete("Use the constructor with AgeSharingStatus instead", true)]
         public AgeComplianceMockData(AgeRange ageRange, AgeRangeDeclarationMethod ageRangeDeclarationMethod)
         {
             AgeRange = ageRange;
+            AgeRangeDeclarationMethod = ageRangeDeclarationMethod;
+        }
+
+        public AgeComplianceMockData(AgeRange ageRange, AgeSharingStatus ageSharingStatus, AgeRangeDeclarationMethod ageRangeDeclarationMethod)
+        {
+            AgeRange = ageRange;
+            AgeSharingStatus = ageSharingStatus;
             AgeRangeDeclarationMethod = ageRangeDeclarationMethod;
         }
     }

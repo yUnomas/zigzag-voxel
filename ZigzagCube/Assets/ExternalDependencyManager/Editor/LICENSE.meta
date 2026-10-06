@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: eca58a95d98c4fc297d3ad17b7bf24c6
+guid: a2d2376591be4ea8aa46d20a20231a11
 labels:
 - gvh
-- gvh_version-1.2.187
+- gvh_version-1.2.189
 - gvhp_exportpath-ExternalDependencyManager/Editor/LICENSE
 timeCreated: 1584567712
 licenseType: Store
@@ -15,6 +15,6 @@ AssetOrigin:
   productId: 140137
   packageName: Essential Kit Lite for Mobile & TV - Sharing, Rate My App, Shortcuts
     & More
-  packageVersion: 3.7.4
+  packageVersion: 3.7.5
   assetPath: Assets/ExternalDependencyManager/Editor/LICENSE
-  uploadId: 891732
+  uploadId: 990956

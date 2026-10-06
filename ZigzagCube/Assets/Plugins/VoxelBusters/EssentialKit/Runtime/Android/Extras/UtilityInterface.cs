@@ -47,8 +47,9 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.Android
                 onSuccessCallback = (nativeInfoForAgeCompliance) =>
                 {
                     AgeRange ageRange = new AgeRange(nativeInfoForAgeCompliance.GetUserAgeRange().GetLowerBound(), nativeInfoForAgeCompliance.GetUserAgeRange().GetUpperBound());
+                    AgeSharingStatus ageSharingStatus = (AgeSharingStatus) nativeInfoForAgeCompliance.GetAgeSharingStatus();
                     AgeRangeDeclarationMethod ageRangeDeclarationMethod = (AgeRangeDeclarationMethod) nativeInfoForAgeCompliance.GetUserAgeRangeDeclarationMethod();
-                     CallbackDispatcher.InvokeOnMainThread(() => onComplete(new InfoForAgeCompliance(ageRange, ageRangeDeclarationMethod), null));  
+                     CallbackDispatcher.InvokeOnMainThread(() => onComplete(new InfoForAgeCompliance(ageRange, ageSharingStatus, ageRangeDeclarationMethod), null));  
                 },
                 onErrorCallback = (errorInfo) =>
                 {

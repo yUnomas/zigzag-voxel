@@ -9,6 +9,7 @@ namespace VoxelBusters.EssentialKit.ExtrasCore.iOS
         #region Properties
 
         public AgeRange AgeRange { get;  internal set; }
+        public AgeSharingStatus AgeSharingStatus { get;  internal set; }
         public AgeRangeDeclarationMethod AgeRangeDeclarationMethod { get;  internal set; }
 
         #endregion

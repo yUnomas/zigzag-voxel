@@ -26,11 +26,11 @@ android {
         }
     }
 
-    compileSdk 35
+    compileSdk 36
     buildToolsVersion getUnityBuildToolsVersion()
     
     defaultConfig {
-        minSdkVersion   21
+        minSdkVersion   23
     }
 
     lintOptions {

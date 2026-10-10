@@ -4,6 +4,7 @@ public class PlayerData
 {
     public string name;
     public string id;
+    public SkinType skin;
 
     /// <summary>
     /// ランダムなプレイヤー名の生成    </summary>

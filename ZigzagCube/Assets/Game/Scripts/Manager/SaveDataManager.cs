@@ -33,7 +33,12 @@ public class SaveDataManager : MonoBehaviour
     private void Awake()
     {
         // インスタンス化
-        if (instance == null) instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            LoadAll();
+        }
+
     }
     private void OnApplicationQuit()
     {

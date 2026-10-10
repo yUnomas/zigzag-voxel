@@ -34,6 +34,16 @@ public class GameplayManager : SceneManagerBase<GameplayManager>
         resultManager = ResultManager.Instance;
         saveDataManager = SaveDataManager.Instance;
     }
+    private void OnApplicationPause(bool pause)
+    {
+        if (!isPlaying) return;
+
+        // ポーズ状態の設定
+        SetPause(true);
+        // ポーズUIの表示・非表示
+        if (isPaused) gameplayUI.ShowPauseUI();
+        else gameplayUI.HidePauseUI();
+    }
     protected override void OnInit()
     {
         player = FindAnyObjectByType<PlayerController>();
@@ -132,9 +142,9 @@ public class GameplayManager : SceneManagerBase<GameplayManager>
     }
     /// <summary>
     /// ポーズ状態の切り替え    </summary>
-    public void TogglePause()
+    public void SetPause(bool value)
     {
-        isPaused = !isPaused;
+        isPaused = value;
 
         if (isPaused) Pause();
         else Resume();

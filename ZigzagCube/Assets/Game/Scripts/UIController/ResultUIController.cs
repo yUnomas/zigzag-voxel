@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ResultUIController : UIControllerBase
 {
+    [SerializeField] private TextMeshProUGUI newRecordTMP;
     [SerializeField] private TextMeshProUGUI scoreTMP;
     [SerializeField] private TextMeshProUGUI highScoreTMP;
-    [SerializeField] private TextMeshProUGUI newRecordTMP;
     [SerializeField] private TextMeshProUGUI playTimeTMP;
-    [SerializeField] private RankingUIController rankingUI;
+    [SerializeField] private TextMeshProUGUI turnsTMP;
+    [SerializeField] private TextMeshProUGUI levelTMP;
 
     private ResultData resultData;
 
@@ -20,12 +21,12 @@ public class ResultUIController : UIControllerBase
         // 1時間を超えていたら、「時:分:秒」で表示
         if (timeSpan.TotalHours >= 1)
         {
-            playTimeTMP.text = $"Play Time: {(int)timeSpan.TotalHours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+            playTimeTMP.text = $"{(int)timeSpan.TotalHours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
         }
         // 「分:秒」で表示
         else
         {
-            playTimeTMP.text = $"Play Time: {timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+            playTimeTMP.text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
         }
     }
 
@@ -37,7 +38,9 @@ public class ResultUIController : UIControllerBase
 
         // 数値の表示更新
         scoreTMP.text = result.score.ToString();
-        highScoreTMP.text = $"High Score: {result.highScore}";
+        highScoreTMP.text = $"{result.highScore}";
+        turnsTMP.text = $"{result.turns}";
+        levelTMP.text = $"{result.level}";
         UpdatePlayTime(result.playTime);
         // ハイスコアの更新状況によって、新記録ラベルを表示
         if (result.isUpdatedHighScore)
@@ -51,19 +54,6 @@ public class ResultUIController : UIControllerBase
     public void OnClickReturn()
     {
         ResultManager.Instance.BackToTile();
-    }
-    /// <summary>
-    /// ランキング画面を開くボタンが押された際のイベント    </summary>
-    public void OnClickOpenRanking()
-    {
-        GameCenterManager.Instance.ShowLeaderboard();
-    }
-    /// <summary>
-    /// 設定画面を閉じるボタンが押された際のイベント    </summary>
-    public void OnClickCloseRanking()
-    {
-        rankingUI.Hide();
-        Show();
     }
     /// <summary>
     /// 共有ボタンが押された際のイベント    </summary>

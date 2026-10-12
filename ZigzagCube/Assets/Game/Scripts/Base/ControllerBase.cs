@@ -46,12 +46,6 @@ public abstract class ControllerBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 入力情報の作成    </summary>
-    protected virtual InputData CreateInputData()
-    {
-        return new InputData();
-    }
-    /// <summary>
     /// アクティブを設定    </summary>
     public virtual void SetActive(bool value)
     {
@@ -63,5 +57,25 @@ public abstract class ControllerBase : MonoBehaviour
             if (value) module.Activate();
             else module.Deactivate();
         }
+    }
+    /// <summary>
+    /// 特定モデュールを取得    </summary>
+    public T GetModule<T>() where T : ModuleBase
+    {
+        foreach(var module in modules)
+        {
+            // moduleをT型でキャストし、nullでなければ渡す
+            if (module is T typedModule) return typedModule;
+        }
+        Debug.LogError(
+            $"一致するモデュールがセットされていません。\nObject:{gameObject} Module:{typeof(T)}");
+        return null;
+    }
+
+    /// <summary>
+    /// 入力情報の作成    </summary>
+    protected virtual InputData CreateInputData()
+    {
+        return new InputData();
     }
 }

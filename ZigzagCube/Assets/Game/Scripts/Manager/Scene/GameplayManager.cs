@@ -88,6 +88,8 @@ public class GameplayManager : SceneManagerBase<GameplayManager>
             highScore = gameProgressData.highScore,
             isUpdatedHighScore = isUpdateHighScore,
             playTime = this.playTime,
+            turns = player.GetModule<PlayerMovement>().Turns,
+            level = DifficultyManager.Instance.Level,
         };
         resultManager.SetResult(resultData);
         // マネージャーのゲーム終了イベント発火

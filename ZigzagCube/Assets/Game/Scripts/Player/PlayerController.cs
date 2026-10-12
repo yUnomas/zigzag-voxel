@@ -8,8 +8,7 @@ public class PlayerController : ControllerBase
     [SerializeField]
     private Collider[] colliders;
 
-    public PlayerState State => state;
-    private PlayerState state;
+    public PlayerState State { get; private set; }
     
     protected override InputData CreateInputData()
     {
@@ -25,18 +24,20 @@ public class PlayerController : ControllerBase
         TriggerCollider(value);
         base.SetActive(value);
     }
-
     /// <summary>
     /// 当たり判定の有効・無効の切り替え    </summary>
     private void TriggerCollider(bool isEnable)
     {
+        if (colliders == null) return;
         foreach (Collider collider in colliders) collider.enabled = isEnable;
     }
+    /// <summary>
+    /// プレイヤーの状態変更    </summary>
     public void ChangeState(PlayerState newState)
     {
-        if (state == newState) return;
+        if (State == newState) return;
 
-        state = newState;
+        State = newState;
         switch(newState)
         {
             case PlayerState.Idle: SetActive(false); break;

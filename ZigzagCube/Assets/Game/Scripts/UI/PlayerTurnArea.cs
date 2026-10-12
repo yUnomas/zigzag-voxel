@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ChangeDirectionArea : MonoBehaviour, IPointerClickHandler
+public class PlayerTurnArea : MonoBehaviour, IPointerClickHandler
 {
     PlayerMovement player;
 
@@ -11,6 +11,6 @@ public class ChangeDirectionArea : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        player.ChangeDirection();
+        player.Turn();
     }
 }

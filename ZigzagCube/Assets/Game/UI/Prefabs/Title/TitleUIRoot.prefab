@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TAP TO SWITCH
+  m_text: TAP TO TURN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10046a25e0ec29f4c8ef176f7b351d1f, type: 2}
   m_sharedMaterial: {fileID: 2500069196570133525, guid: 10046a25e0ec29f4c8ef176f7b351d1f, type: 2}
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 123.05
+  m_fontSize: 143.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1778408283854879938}
   - component: {fileID: 6632427531807800445}
   m_Layer: 0
-  m_Name: ChangeDirectionArea
+  m_Name: PlayerTurnArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

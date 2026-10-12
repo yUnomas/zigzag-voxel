@@ -24,11 +24,10 @@ public class DifficultyManager : MonoBehaviour
 
     /// <summary>
     /// 難易度パラメーター    </summary>
-    public DifficultyParameterEntry Parameter => table.GetEntry(level);
+    public DifficultyParameterEntry Parameter => table.GetEntry(Level);
     /// <summary>
     /// 難易度レベル    </summary>
-    public int Level => level;
-    private int level = 0;
+    public int Level { get; private set; }
     /// <summary>
     /// 現在の難易度上昇に必要な距離    </summary>
     private float currentStepDistance;
@@ -43,13 +42,13 @@ public class DifficultyManager : MonoBehaviour
     }
     private void Update()
     {
-        if (level >= maxLevel) return;
+        if (Level >= maxLevel) return;
 
         // 一定距離の移動で難易度を上昇
         if (player.transform.position.z - lastIncreasedDistance >= currentStepDistance)
         {
             IncreaseDifficulty();
-            if (level > 1) PlayEffect();
+            if (Level > 1) PlayEffect();
         }
     }
     private void LateUpdate()
@@ -61,8 +60,8 @@ public class DifficultyManager : MonoBehaviour
 
     private void IncreaseDifficulty()
     {
-        level++;
-        Debug.Log($"難易度が{level}に上昇しました");
+        Level++;
+        Debug.Log($"難易度が{Level}に上昇しました");
 
         // プレイヤーの速度上昇
         player.SetSpeed(Parameter.playerMoveSpeed);

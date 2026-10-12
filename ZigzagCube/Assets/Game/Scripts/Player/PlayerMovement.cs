@@ -19,6 +19,9 @@ public class PlayerMovement : ModuleBase<PlayerController>
     /// <summary>
     /// 移動方向    </summary>
     private int direction = 1;
+    /// <summary>
+    /// 移動方向の切り替え数    </summary>
+    public int Turns { get; private set; }
 
     public override void Activate()
     {
@@ -36,11 +39,10 @@ public class PlayerMovement : ModuleBase<PlayerController>
         // アニメーション・エフェクトの切り替え
         moveTrajectoryFX.enabled = false;
     }
-
     public override void Execute(InputData inputData)
     {
         // タップで方向切り替え
-        if (inputData.isTouch) ChangeDirection();
+        if (inputData.isTouch) Turn();
 
         // 地面から落下した場合に方向切り替えを無効化
         if (transform.position.y < 1.0f && !boxCollider.enabled)
@@ -53,7 +55,6 @@ public class PlayerMovement : ModuleBase<PlayerController>
             Debug.Log($"プレイヤーが落下から復帰しました \n Y:{transform.position.y}");
             boxCollider.enabled = false;
         }
-
     }
     public override void FixedExecute()
     {
@@ -65,9 +66,10 @@ public class PlayerMovement : ModuleBase<PlayerController>
 
     /// <summary>
     /// 方向切り替え    </summary>
-    public void ChangeDirection()
+    public void Turn()
     {
         direction *= -1;
+        Turns++;
 
         // プレイヤーの状態による分岐
         switch(controller.State)
@@ -89,8 +91,9 @@ public class PlayerMovement : ModuleBase<PlayerController>
                 }
                 break;
         }
+
         controller.Model.Turn(direction);
-        AudioManager.Instance.PlaySE("PlayerChangeDirection");
+        AudioManager.Instance.PlaySE("PlayerTurn");
     }
 
     public void SetSpeed(float value)

@@ -8,6 +8,7 @@ public class AdsManager : MonoBehaviour
     private int displayInterval = 3;
     [SerializeField] private InterstitialAdHandler interstitialAdHandler;
     [SerializeField] private RewardedAdHandler rewardedAdHandler;
+    [SerializeField] private BannerAdHandler bannerAdHandler;
 
     public static AdsManager Instance => instance;
     private static AdsManager instance;
@@ -41,7 +42,19 @@ public class AdsManager : MonoBehaviour
 
             interstitialAdHandler.Load();
             rewardedAdHandler.Load();
+            bannerAdHandler.Load();
         });
+    }
+    /// <summary>
+    /// 指定広告のロード    </summary>
+    public void LoadAd(AdType type)
+    {
+        switch (type)
+        {
+            case AdType.Interstitial: interstitialAdHandler.Load(); break;
+            case AdType.Rewarded: rewardedAdHandler.Load(); break;
+            case AdType.Banner: bannerAdHandler.Load(); break;
+        }
     }
     /// <summary>
     /// 広告表示    </summary>
@@ -51,6 +64,7 @@ public class AdsManager : MonoBehaviour
         {
             case AdType.Interstitial: interstitialAdHandler.Show(); break;
             case AdType.Rewarded: rewardedAdHandler.Show(); break;
+            case AdType.Banner: bannerAdHandler.Show(); break;
         }
     }
     /// <summary>
@@ -66,6 +80,14 @@ public class AdsManager : MonoBehaviour
                 break;
         }
     }
+    public void HideAd(AdType type)
+    {
+        switch (type)
+        {
+            case AdType.Banner: bannerAdHandler.Hide(); break;
+        }
+    }
+
     /// <summary>
     /// インタースティシャル広告の表示タイミングか判定    </summary>
     /// <returns>

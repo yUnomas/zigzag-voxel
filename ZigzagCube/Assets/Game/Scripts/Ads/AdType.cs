@@ -2,5 +2,6 @@
 {
     None,
     Interstitial,
-    Rewarded
+    Rewarded,
+    Banner,
 }

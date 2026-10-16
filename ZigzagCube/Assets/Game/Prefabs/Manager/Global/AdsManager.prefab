@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7717282355484895786}
   - component: {fileID: 3636889667516598014}
   - component: {fileID: 5077921168629910974}
+  - component: {fileID: 761730759608899723}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   displayInterval: 3
   interstitialAdHandler: {fileID: 3636889667516598014}
   rewardedAdHandler: {fileID: 5077921168629910974}
+  bannerAdHandler: {fileID: 761730759608899723}
 --- !u!114 &3636889667516598014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,5 +73,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 043dd4880228c214094b8b0d3c1a0990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &761730759608899723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2816339326306437449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0915851e8f399a64c948a27b028ef949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

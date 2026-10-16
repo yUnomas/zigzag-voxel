@@ -9,8 +9,9 @@ public class TitleManager : SceneManagerBase<TitleManager>
         // タイトルUI表示
         titleUI = FindAnyObjectByType<TitleUIController>();
         titleUI.Show();
-        // インタースティシャル広告の表示を試みる
+        // 広告
         AdsManager.Instance.TryShowAd(AdType.Interstitial);
+        AdsManager.Instance.LoadAd(AdType.Banner);
     }
     protected override void OnStart()
     {

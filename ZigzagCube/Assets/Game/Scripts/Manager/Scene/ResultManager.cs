@@ -9,11 +9,16 @@ public class ResultManager : SceneManagerBase<ResultManager>
     {
         resultUI = FindAnyObjectByType<ResultUIController>();
         resultUI.Show();
-        AudioManager.Instance.PlaySE("PopupOpen");
+        AdsManager.Instance.ShowAd(AdType.Banner);
     }
     protected override void OnStart()
     {
         resultUI.ShowResult(resultData);
+        AudioManager.Instance.PlaySE("PopupOpen");
+    }
+    protected override void OnUninit()
+    {
+        AdsManager.Instance.HideAd(AdType.Banner);
     }
 
     /// <summary>

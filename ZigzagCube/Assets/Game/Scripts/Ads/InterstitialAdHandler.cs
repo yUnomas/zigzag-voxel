@@ -6,42 +6,6 @@ public class InterstitialAdHandler : MonoBehaviour
 {
     private InterstitialAd interstitialAd;
 
-#if UNITY_IOS
-    private const string InterstitialAdUnitID =
-        "ca-app-pub-3940256099942544/4411468910";
-#elif UNITY_ANDROID
-    private const string InterstitialAdUnitID =
-        "ca-app-pub-3940256099942544/1033173712";
-#else
-    private const string InterstitialAdUnitID = "unused";
-#endif
-
-    public void Load()
-    {
-        Destroy();
-
-#if UNITY_IOS || UNITY_ANDROID
-        // インタースティシャル広告のリクエスト送信
-        var request = new AdRequest();
-        InterstitialAd.Load(InterstitialAdUnitID, request,  (InterstitialAd ad, LoadAdError error) =>
-        {
-            if (error != null)
-            {
-                Debug.LogWarning($"インタースティシャル広告の読み込み失敗\n{error}");
-                return;
-            }
-            if (ad == null)
-            {
-                Debug.LogWarning("インタースティシャル広告がnull");
-                return;
-            }
-
-            Debug.Log("インタースティシャル広告の読み込み完了");
-            interstitialAd = ad;
-            RegisterAdEvents();
-        });
-#endif
-    }
     private void Destroy()
     {
         if (interstitialAd == null) return;
@@ -70,6 +34,31 @@ public class InterstitialAdHandler : MonoBehaviour
         };
     }
 
+    public void Load()
+    {
+        Destroy();
+#if UNITY_IOS || UNITY_ANDROID
+        // インタースティシャル広告のリクエスト送信
+        var request = new AdRequest();
+        InterstitialAd.Load(AdsManager.Instance.Config.InterstitialAdUnitId, request, (InterstitialAd ad, LoadAdError error) =>
+        {
+            if (error != null)
+            {
+                Debug.LogWarning($"インタースティシャル広告の読み込み失敗\n{error}");
+                return;
+            }
+            if (ad == null)
+            {
+                Debug.LogWarning("インタースティシャル広告の取得失敗");
+                return;
+            }
+
+            Debug.Log("インタースティシャル広告の読み込み完了");
+            interstitialAd = ad;
+            RegisterAdEvents();
+        });
+#endif
+    }
     public void Show()
     {
         if (interstitialAd == null || !interstitialAd.CanShowAd())

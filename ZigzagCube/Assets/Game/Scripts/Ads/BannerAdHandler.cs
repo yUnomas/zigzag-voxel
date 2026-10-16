@@ -3,16 +3,6 @@ using UnityEngine;
 
 public class BannerAdHandler : MonoBehaviour
 {
-#if UNITY_IOS
-    private const string BannerAdUnitID =
-        "ca-app-pub-3940256099942544/2934735716";
-#elif UNITY_ANDROID
-    private const string BannerAdUnitID =
-        "ca-app-pub-3940256099942544/6300978111";
-#else
-    private const string BannerAdUnitID = "unused";
-#endif
-
     private BannerView bannerView;
     private AdSize adaptiveSize;
 
@@ -53,7 +43,7 @@ public class BannerAdHandler : MonoBehaviour
     {
         Destroy();
 #if UNITY_IOS || UNITY_ANDROID
-        bannerView = new BannerView(BannerAdUnitID, adaptiveSize, AdPosition.Top);
+        bannerView = new BannerView(AdsManager.Instance.Config.BannerAdUnitId, adaptiveSize, AdPosition.Top);
         RegisterAdEvents();
         bannerView.Hide();
         bannerView.LoadAd(new AdRequest());

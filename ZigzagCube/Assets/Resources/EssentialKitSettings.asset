@@ -58,13 +58,13 @@ MonoBehaviour:
     m_additionalPlatformSupportSettings:
       m_supportAndroidPc: 0
   m_addressBookSettings:
-    m_isEnabled: 1
+    m_isEnabled: 0
     m_defaultImage: {fileID: 0}
   m_appShortcutsSettings:
-    m_isEnabled: 1
+    m_isEnabled: 0
     m_icons: []
   m_nativeUISettings:
-    m_isEnabled: 1
+    m_isEnabled: 0
     m_customUICollection:
       m_rendererPrefab: {fileID: 114882653979984282, guid: b8b2730da8ec14db686316d122a0939e, type: 3}
       m_alertDialogPrefab: {fileID: 114719650402599042, guid: 0bea496bdcd2d41ebb1104db0fd905dc, type: 3}
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_sharingServicesSettings:
     m_isEnabled: 1
   m_networkServicesSettings:
-    m_isEnabled: 1
+    m_isEnabled: 0
     m_hostAddress:
       m_ipv4: 8.8.8.8
       m_ipv6: 0:0:0:0:0:FFFF:0808:0808
@@ -83,7 +83,7 @@ MonoBehaviour:
       m_timeOutPeriod: 60
       m_port: 53
   m_rateMyAppSettings:
-    m_isEnabled: 1
+    m_isEnabled: 0
     m_autoShow: 1
     m_allowReratingForNewVersion: 0
     m_confirmationDialogSettings:
@@ -103,5 +103,5 @@ MonoBehaviour:
         m_minHours: 6
         m_minLaunches: 5
   m_utilitySettings:
-    m_isEnabled: 1
+    m_isEnabled: 0
     m_usesAgeComplianceApi: 0

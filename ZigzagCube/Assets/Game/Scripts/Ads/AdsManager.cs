@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class AdsManager : MonoBehaviour
 {
-    [SerializeField, Tooltip("広告の表示間隔")]
-    private int displayInterval = 3;
+    [Header("=====")]
+    [SerializeField] private AdConfig config;
+    public AdConfig Config => config;
     [SerializeField] private InterstitialAdHandler interstitialAdHandler;
     [SerializeField] private RewardedAdHandler rewardedAdHandler;
     [SerializeField] private BannerAdHandler bannerAdHandler;
@@ -94,7 +95,7 @@ public class AdsManager : MonoBehaviour
     /// セッション中の1プレイ目、または一定の表示間隔に達した場合は true </returns>
     public bool IsInterstitialTiming()
     {
-        return sessionPlayCount == 1 || (sessionPlayCount - 1) % displayInterval == 0;
+        return sessionPlayCount == 1 || (sessionPlayCount - 1) % Config.interstitialAdDisplayInterval == 0;
     }
     /// <summary>
     /// リワード広告の報酬を設定    </summary>

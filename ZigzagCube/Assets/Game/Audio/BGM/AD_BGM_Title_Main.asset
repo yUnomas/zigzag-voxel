@@ -15,5 +15,5 @@ MonoBehaviour:
   id: TitleMain
   clip: {fileID: 8300000, guid: abcce405a0575ff48accc62c67b9abfc, type: 3}
   mixerGroup: {fileID: 2714052797050844384, guid: df9456bafe98509469440614bc8d9cc0, type: 2}
-  volume: 1
+  volume: 0.7
   isLoop: 1

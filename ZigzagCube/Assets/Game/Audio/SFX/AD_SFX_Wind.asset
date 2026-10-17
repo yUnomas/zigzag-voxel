@@ -15,5 +15,5 @@ MonoBehaviour:
   id: Wind
   clip: {fileID: 8300000, guid: d9e653131eb183b4fa32d7ad5eaca586, type: 3}
   mixerGroup: {fileID: -1138199545658143175, guid: df9456bafe98509469440614bc8d9cc0, type: 2}
-  volume: 1
+  volume: 0.85
   isLoop: 0

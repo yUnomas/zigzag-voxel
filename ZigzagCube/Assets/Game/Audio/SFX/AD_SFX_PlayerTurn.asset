@@ -15,5 +15,5 @@ MonoBehaviour:
   id: PlayerTurn
   clip: {fileID: 8300000, guid: 36ea15444b98df249bc7742cfbb3aac3, type: 3}
   mixerGroup: {fileID: -1138199545658143175, guid: df9456bafe98509469440614bc8d9cc0, type: 2}
-  volume: 1
+  volume: 0.5
   isLoop: 0

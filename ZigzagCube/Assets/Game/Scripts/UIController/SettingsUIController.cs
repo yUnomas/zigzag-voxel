@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class SettingsUIController : UIControllerBase
 {
-    [SerializeField] private PlayerNameField playerNameField;
-
+    private PlayerNameField playerNameField;
     private SaveDataManager saveDataManager;
 
     public override void Show()
     {
-        saveDataManager = SaveDataManager.Instance;
         gameObject.SetActive(true);
-
+        /* プレイヤー名を取得・フィールド内に表示
+        saveDataManager = SaveDataManager.Instance;
         playerNameField.SetPlayerName(saveDataManager.PlayerData.name);
+        */
     }
     public override void Hide()
     {

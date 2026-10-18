@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class SettingsUIController : UIControllerBase
 {
+    [SerializeField] private GameObject privacyOptionsButton;
+
     private PlayerNameField playerNameField;
     private SaveDataManager saveDataManager;
 
     public override void Show()
     {
         gameObject.SetActive(true);
+        UpdatePrivacyOptionsButton();
         /* プレイヤー名を取得・フィールド内に表示
         saveDataManager = SaveDataManager.Instance;
         playerNameField.SetPlayerName(saveDataManager.PlayerData.name);
@@ -19,6 +22,15 @@ public class SettingsUIController : UIControllerBase
         gameObject.SetActive(false);
     }
 
+    private void UpdatePrivacyOptionsButton()
+    {
+        // UMPの同意状態によって表示状態を更新
+        privacyOptionsButton.SetActive(UMPManager.Instance.IsPrivacyOptionsRequired());
+    }
+    public void OnClickPrivacyOptions()
+    {
+        UMPManager.Instance.ShowPrivacyOptions();
+    }
     /// <summary>
     /// プレイヤー名の変更完了時のイベント    </summary>
     public void OnEndEditPlayerName(TMP_InputField inputField)

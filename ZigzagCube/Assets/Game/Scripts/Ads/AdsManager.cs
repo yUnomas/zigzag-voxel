@@ -10,6 +10,7 @@ public class AdsManager : MonoBehaviour
     [SerializeField] private InterstitialAdHandler interstitialAdHandler;
     [SerializeField] private RewardedAdHandler rewardedAdHandler;
     [SerializeField] private BannerAdHandler bannerAdHandler;
+    [SerializeField] private UMPManager umpManager;
 
     public static AdsManager Instance => instance;
     private static AdsManager instance;
@@ -25,22 +26,31 @@ public class AdsManager : MonoBehaviour
     }
     private void Start()
     {
-        Initialize();
+        umpManager.RequestConsent(canRequestAds =>
+        {
+            if(!canRequestAds)
+            {
+                Debug.LogWarning("Ads cannot be requested.");
+                return;
+            }
+
+            Initialize();
+        });
     }
 
     /// <summary>
     /// 初期化    </summary>
     private void Initialize()
     {
-        MobileAds.Initialize((InitializationStatus initstatus) =>
+        MobileAds.Initialize((InitializationStatus initStatus) =>
         {
-            if (initstatus == null)
+            if (initStatus == null)
             {
-                Debug.LogError("Google Mobile Adsの初期化に失敗");
+                Debug.LogError("Google Mobile Ads cannot be initialized");
                 return;
             }
-            Debug.Log("Google Mobile Adsの初期化が完了");
 
+            Debug.Log("Google Mobile Ads initialized");
             interstitialAdHandler.Load();
             rewardedAdHandler.Load();
             bannerAdHandler.Load();

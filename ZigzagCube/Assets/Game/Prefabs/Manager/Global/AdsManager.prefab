@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8187146395711192170}
   - component: {fileID: 7717282355484895786}
+  - component: {fileID: 3668620740610878759}
   - component: {fileID: 3636889667516598014}
   - component: {fileID: 5077921168629910974}
   - component: {fileID: 761730759608899723}
@@ -51,6 +52,19 @@ MonoBehaviour:
   interstitialAdHandler: {fileID: 3636889667516598014}
   rewardedAdHandler: {fileID: 5077921168629910974}
   bannerAdHandler: {fileID: 761730759608899723}
+  umpManager: {fileID: 3668620740610878759}
+--- !u!114 &3668620740610878759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2816339326306437449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851ed10342d5d5849bbd87f37591a60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3636889667516598014
 MonoBehaviour:
   m_ObjectHideFlags: 0

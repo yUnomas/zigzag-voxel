@@ -6,13 +6,21 @@ public class RewardedAdHandler : MonoBehaviour
 {
     private RewardedAd rewardedAd;
     private Action onRewarded;
+    private bool isRewardEarned = false;
+    private bool isAdClosed = false;
 
+    private void EarnReward()
+    {
+        if (isRewardEarned && isAdClosed) onRewarded?.Invoke();
+    }
     private void Destroy()
     {
         if (rewardedAd == null) return;
 
         rewardedAd.Destroy();
         rewardedAd = null;
+        isRewardEarned = false;
+        isAdClosed = false;
     }
     private void RegisterAdEvents()
     {
@@ -25,6 +33,8 @@ public class RewardedAdHandler : MonoBehaviour
         {
             Debug.LogWarning($"リワード広告の表示終了");
             AudioListener.pause = false;
+            isAdClosed = true;
+            EarnReward();
             Load();
         };
         rewardedAd.OnAdFullScreenContentFailed += error =>
@@ -64,7 +74,8 @@ public class RewardedAdHandler : MonoBehaviour
     {
         rewardedAd.Show((Reward reward) =>
         {
-            onRewarded?.Invoke();
+            isRewardEarned = true;
+            EarnReward();
         });
     }
     public void SetReward(Action action)

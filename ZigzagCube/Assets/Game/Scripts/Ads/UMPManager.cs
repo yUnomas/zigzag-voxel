@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using GoogleMobileAds.Ump.Api;
 using UnityEngine;
 
-public class UMPManager : MonoBehaviour
+public static class UMPManager
 {
-    private static UMPManager instance;
-    public static UMPManager Instance => instance;
-
-    private void Awake()
-    {
-        if(instance == null) instance = this;
-    }
-    private ConsentRequestParameters CreateConsentParameters()
+    private static ConsentRequestParameters CreateConsentParameters()
     {
         ConsentRequestParameters parameters = new ConsentRequestParameters();
 
-#if UNITY_IOS && !UNITY_EDITOR && DEVELOPMENT_BUILD
+/*#if UNITY_IOS && !UNITY_EDITOR && DEVELOPMENT_BUILD
     parameters.ConsentDebugSettings = new ConsentDebugSettings
     {
         DebugGeography = DebugGeography.EEA,
@@ -25,11 +18,11 @@ public class UMPManager : MonoBehaviour
             "YOUR_TEST_DEVICE_HASHED_ID"
         }
     };
-#endif
+#endif*/
         return parameters;
     }
 
-    public void RequestConsent(Action<bool> onCompleted)
+    public static void RequestConsent(Action<bool> onCompleted)
     {
         // Create a ConsentRequestParameters object.
         ConsentRequestParameters requestParameters = CreateConsentParameters();
@@ -55,12 +48,12 @@ public class UMPManager : MonoBehaviour
             });
         });
     }
-    public bool IsPrivacyOptionsRequired()
+    public static bool IsPrivacyOptionsRequired()
     {
         return ConsentInformation.PrivacyOptionsRequirementStatus
             == PrivacyOptionsRequirementStatus.Required;
     }
-    public void ShowPrivacyOptions()
+    public static void ShowPrivacyOptions()
     {
         ConsentForm.ShowPrivacyOptionsForm(error =>
         {

@@ -25,11 +25,11 @@ public class SettingsUIController : UIControllerBase
     private void UpdatePrivacyOptionsButton()
     {
         // UMPの同意状態によって表示状態を更新
-        privacyOptionsButton.SetActive(UMPManager.Instance.IsPrivacyOptionsRequired());
+        privacyOptionsButton.SetActive(UMPManager.IsPrivacyOptionsRequired());
     }
     public void OnClickPrivacyOptions()
     {
-        UMPManager.Instance.ShowPrivacyOptions();
+        UMPManager.ShowPrivacyOptions();
     }
     /// <summary>
     /// プレイヤー名の変更完了時のイベント    </summary>

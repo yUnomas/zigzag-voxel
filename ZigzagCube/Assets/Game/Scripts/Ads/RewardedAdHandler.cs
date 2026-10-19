@@ -6,74 +6,107 @@ public class RewardedAdHandler : MonoBehaviour
 {
     private RewardedAd rewardedAd;
     private Action onRewarded;
-    private bool isRewardEarned = false;
-    private bool isAdClosed = false;
+    
+    private bool isRewardEarned;
+    private bool isAdClosed;
+    private bool isLoading;
 
     private void EarnReward()
     {
-        if (isRewardEarned && isAdClosed) onRewarded?.Invoke();
+        if (!isRewardEarned || !isAdClosed) return;
+
+        isRewardEarned = false;
+        isAdClosed = false;
+
+        Action reward = onRewarded;
+        onRewarded = null;
+        reward?.Invoke();
     }
     private void Destroy()
     {
-        if (rewardedAd == null) return;
-
-        rewardedAd.Destroy();
+        rewardedAd?.Destroy();
         rewardedAd = null;
-        isRewardEarned = false;
-        isAdClosed = false;
     }
     private void RegisterAdEvents()
     {
-        rewardedAd.OnAdFullScreenContentOpened += () =>
+        rewardedAd.OnAdFullScreenContentOpened += async () =>
         {
-            Debug.LogWarning($"リワード広告の表示開始");
+            await Awaitable.MainThreadAsync();
+
+            Debug.Log($"リワード広告の表示開始");
             AudioListener.pause = true;
         };
-        rewardedAd.OnAdFullScreenContentClosed += () =>
+        rewardedAd.OnAdFullScreenContentClosed += async () =>
         {
-            Debug.LogWarning($"リワード広告の表示終了");
+            await Awaitable.MainThreadAsync();
+
+            Debug.Log($"リワード広告の表示終了");
             AudioListener.pause = false;
+
             isAdClosed = true;
             EarnReward();
+
             Load();
         };
-        rewardedAd.OnAdFullScreenContentFailed += error =>
+        rewardedAd.OnAdFullScreenContentFailed += async error =>
         {
+            await Awaitable.MainThreadAsync();
+
             Debug.LogWarning($"リワード広告の表示失敗\n{error}");
             AudioListener.pause = false;
+
+            onRewarded = null;
+            isRewardEarned = false;
+            isAdClosed = false;
+
             Load();
         };
     }
 
     public void Load()
     {
+        if(isLoading) return;
+
+        isLoading = true;
         Destroy();
+
 #if UNITY_IOS || UNITY_ANDROID
         // リワード広告のリクエスト送信
-        var request = new AdRequest();
-        RewardedAd.Load(AdsManager.Instance.Config.RewardedAdUnitId, request, (RewardedAd ad, LoadAdError error) =>
+        RewardedAd.Load(AdsManager.Instance.Config.RewardedAdUnitId, new AdRequest(), async (RewardedAd ad, LoadAdError error) =>
         {
-            if (error != null)
+            await Awaitable.MainThreadAsync();
+
+            isLoading = false;
+
+            if (error != null || ad == null)
             {
                 Debug.LogWarning($"リワード広告の読み込み失敗\n{error}");
+                ad?.Destroy();
                 return;
             }
-            if (ad == null)
-            {
-                Debug.LogWarning("リワード広告の取得失敗");
-                return;
-            }
-
+            
             Debug.Log("リワード広告の読み込み完了");
             rewardedAd = ad;
             RegisterAdEvents();
         });
+#else
+        isLoading = false;
 #endif
     }
     public void Show()
     {
-        rewardedAd.Show((Reward reward) =>
+        if (rewardedAd == null || !rewardedAd.CanShowAd())
         {
+            Debug.LogWarning("リワード広告の表示不可");
+            return;
+        }
+
+        isRewardEarned = false;
+        isAdClosed = false;
+        rewardedAd.Show(async (Reward reward) =>
+        {
+            await Awaitable.MainThreadAsync();
+
             isRewardEarned = true;
             EarnReward();
         });

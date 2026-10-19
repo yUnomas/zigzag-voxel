@@ -15,26 +15,34 @@ public class BannerAdHandler : MonoBehaviour
             AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(deviceWidth);
 #endif
     }
+    private void OnDestroy()
+    {
+        Destroy();
+    }
 
     private void Destroy()
     {
-        if (bannerView == null) return;
-
-        bannerView.Destroy();
+        bannerView?.Destroy();
         bannerView = null;
     }
     private void RegisterAdEvents()
     {
-        bannerView.OnBannerAdLoaded += () =>
+        bannerView.OnBannerAdLoaded += async () =>
         {
+            await Awaitable.MainThreadAsync();
+
             Debug.Log("バナー広告の読み込み完了");
         };
-        bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
+        bannerView.OnBannerAdLoadFailed += async (LoadAdError error) =>
         {
+            await Awaitable.MainThreadAsync();
+
             Debug.Log($"バナー広告の読み込み失敗 Error:{error}");
         };
-        bannerView.OnAdClicked += () =>
+        bannerView.OnAdClicked += async () =>
         {
+            await Awaitable.MainThreadAsync();
+
             Debug.Log("バナー広告のクリック");
         };
     }
@@ -42,6 +50,7 @@ public class BannerAdHandler : MonoBehaviour
     public void Load()
     {
         Destroy();
+
 #if UNITY_IOS || UNITY_ANDROID
         bannerView = new BannerView(AdsManager.Instance.Config.BannerAdUnitId, adaptiveSize, AdPosition.Top);
         RegisterAdEvents();

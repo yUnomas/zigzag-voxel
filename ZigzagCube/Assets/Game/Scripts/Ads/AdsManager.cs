@@ -15,6 +15,13 @@ public class AdsManager : MonoBehaviour
     private static AdsManager instance;
 
     /// <summary>
+    /// UMP・ATTの同意完了後のイベント</summary>
+    public event Action OnConsentCompleted;
+    /// <summary>
+    /// UMP・ATTの同意の完了状態    </summary>
+    public bool IsConsentCompleted { get; private set; }
+
+    /// <summary>
     /// プレイ回数    </summary>
     private int sessionPlayCount;
 
@@ -29,6 +36,9 @@ public class AdsManager : MonoBehaviour
         {
             ATTManager.RequestAuthorization(() =>
             {
+                IsConsentCompleted = true;
+                OnConsentCompleted?.Invoke();
+
                 if (!canRequestAds)
                 {
                     Debug.LogWarning("Ads cannot be requested.");
@@ -44,8 +54,10 @@ public class AdsManager : MonoBehaviour
     /// 初期化    </summary>
     private void Initialize()
     {
-        MobileAds.Initialize((InitializationStatus initStatus) =>
+        MobileAds.Initialize(async initStatus =>
         {
+            await Awaitable.MainThreadAsync();
+
             if (initStatus == null)
             {
                 Debug.LogError("Google Mobile Ads cannot be initialized");

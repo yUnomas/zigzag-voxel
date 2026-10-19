@@ -21,7 +21,7 @@ public static class ATTManager
         }
 
         ATTrackingStatusBinding.RequestAuthorizationTracking(
-            result =>
+            async result =>
             {
                 await Awaitable.MainThreadAsync();
 

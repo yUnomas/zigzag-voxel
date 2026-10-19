@@ -42,7 +42,7 @@ public class FieldManager : MonoBehaviour
     private void CheckChunk()
     {
         // プレイヤーから一定以上離れたら再生成
-        foreach (var chunk in chunks)
+        foreach (ChunkController chunk in chunks)
         {
             if (player.transform.position.z - chunk.transform.position.z >= chunk.Length * 2)
             {
@@ -58,19 +58,17 @@ public class FieldManager : MonoBehaviour
     {
         // プレイヤー座標よりも手前にある最も近いチャンクを取得
         ChunkController reviveChunk = null;
-        Vector3Int revivePoint = Vector3Int.one;
-        foreach(var chunk in chunks)
+        foreach(ChunkController chunk in chunks)
         {
             if(chunk.transform.position.z < player.transform.position.z &&
-                player.transform.position.z - revivePoint.z > player.transform.position.z - chunk.transform.position.z)
+                (reviveChunk == null || reviveChunk.transform.position.z < chunk.transform.position.z))
             {
                 reviveChunk = chunk;
-                revivePoint = chunk.RevivePoint;
             }
         }
 
         // 安全なチャンクに再生成
         reviveChunk?.Regenerate(false, chunks.Count, difficultyManager, ChunkType.Start);
-        return revivePoint;
+        return reviveChunk.RevivePoint;
     }
 }

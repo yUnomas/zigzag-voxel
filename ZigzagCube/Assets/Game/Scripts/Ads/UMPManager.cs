@@ -28,9 +28,11 @@ public static class UMPManager
         ConsentRequestParameters requestParameters = CreateConsentParameters();
 
         // Request an update of the user's consent information.
-        ConsentInformation.Update(requestParameters, consentError =>
+        ConsentInformation.Update(requestParameters, async consentError =>
         {
-            if(consentError != null)
+            await Awaitable.MainThreadAsync();
+
+            if (consentError != null)
             {
                 Debug.LogError("Error updating consent information: " + consentError.Message);
                 onCompleted?.Invoke(ConsentInformation.CanRequestAds());

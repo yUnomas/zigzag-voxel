@@ -22,8 +22,25 @@ public class BootManager : SceneManagerBase<BootManager>
             ChangeScene(debugStartSceneType, false, "GameplayScene");
             return;
         }
+        else StartTitle();
+#elif UNITY_IOS
+        if (AdsManager.Instance.IsConsentCompleted)
+        {
+            StartTitle();
+            return;
+        }
+
+        AdsManager.Instance.OnConsentCompleted += StartTitle;
+#else
+        StartTitle();
 #endif
-        // ゲーム開始時に遷移するシーンを設定
+    }
+
+    private void StartTitle()
+    {
+#if UNITY_IOS && !UNITY_EDITOR
+    AdsManager.Instance.OnConsentCompleted -= StartTitle;
+#endif
         ChangeScene(SceneType.Title, true, "GameplayScene");
     }
 }

@@ -1,33 +1,44 @@
-﻿using System;
-using GoogleMobileAds.Api;
+﻿using GoogleMobileAds.Api;
 using UnityEngine;
 
 public class InterstitialAdHandler : MonoBehaviour
 {
     private InterstitialAd interstitialAd;
+    private bool isLoading;
+
+    private void OnDestroy()
+    {
+        Destroy();
+    }
 
     private void Destroy()
     {
-        if (interstitialAd == null) return;
-
-        interstitialAd.Destroy();
+        interstitialAd?.Destroy();
         interstitialAd = null;
     }
     private void RegisterAdEvents()
     {
-        interstitialAd.OnAdFullScreenContentOpened += () =>
+        interstitialAd.OnAdFullScreenContentOpened += async () =>
         {
-            Debug.LogWarning($"インタースティシャル広告の表示開始");
+            await Awaitable.MainThreadAsync();
+
+            Debug.Log("インタースティシャル広告の表示開始");
             AudioListener.pause = true;
         };
-        interstitialAd.OnAdFullScreenContentClosed += () =>
+
+        interstitialAd.OnAdFullScreenContentClosed += async () =>
         {
-            Debug.LogWarning($"インタースティシャル広告の表示終了");
+            await Awaitable.MainThreadAsync();
+
+            Debug.Log("インタースティシャル広告の表示終了");
             AudioListener.pause = false;
             Load();
         };
-        interstitialAd.OnAdFullScreenContentFailed += error =>
+
+        interstitialAd.OnAdFullScreenContentFailed += async error =>
         {
+            await Awaitable.MainThreadAsync();
+
             Debug.LogWarning($"インタースティシャル広告の表示失敗\n{error}");
             AudioListener.pause = false;
             Load();
@@ -36,27 +47,35 @@ public class InterstitialAdHandler : MonoBehaviour
 
     public void Load()
     {
-        Destroy();
-#if UNITY_IOS || UNITY_ANDROID
-        // インタースティシャル広告のリクエスト送信
-        var request = new AdRequest();
-        InterstitialAd.Load(AdsManager.Instance.Config.InterstitialAdUnitId, request, (InterstitialAd ad, LoadAdError error) =>
-        {
-            if (error != null)
-            {
-                Debug.LogWarning($"インタースティシャル広告の読み込み失敗\n{error}");
-                return;
-            }
-            if (ad == null)
-            {
-                Debug.LogWarning("インタースティシャル広告の取得失敗");
-                return;
-            }
+        if (isLoading) return;
 
-            Debug.Log("インタースティシャル広告の読み込み完了");
-            interstitialAd = ad;
-            RegisterAdEvents();
-        });
+        isLoading = true;
+        Destroy();
+
+#if UNITY_IOS || UNITY_ANDROID
+        InterstitialAd.Load(
+            AdsManager.Instance.Config.InterstitialAdUnitId,
+            new AdRequest(),
+            async (InterstitialAd ad, LoadAdError error) =>
+            {
+                await Awaitable.MainThreadAsync();
+
+                isLoading = false;
+
+                if (error != null || ad == null)
+                {
+                    Debug.LogWarning(
+                        $"インタースティシャル広告の読み込み失敗\n{error}");
+                    ad?.Destroy();
+                    return;
+                }
+
+                Debug.Log("インタースティシャル広告の読み込み完了");
+                interstitialAd = ad;
+                RegisterAdEvents();
+            });
+#else
+        isLoading = false;
 #endif
     }
     public void Show()
@@ -66,6 +85,7 @@ public class InterstitialAdHandler : MonoBehaviour
             Debug.Log("インタースティシャル広告の表示不可");
             return;
         }
+
         interstitialAd.Show();
     }
 }

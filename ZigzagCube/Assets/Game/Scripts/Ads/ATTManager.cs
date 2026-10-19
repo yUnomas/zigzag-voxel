@@ -23,6 +23,8 @@ public static class ATTManager
         ATTrackingStatusBinding.RequestAuthorizationTracking(
             result =>
             {
+                await Awaitable.MainThreadAsync();
+
                 Debug.Log($"ATT authorization status: {result}");
                 onCompleted?.Invoke();
             });

@@ -10,7 +10,6 @@ public class AdsManager : MonoBehaviour
     [SerializeField] private InterstitialAdHandler interstitialAdHandler;
     [SerializeField] private RewardedAdHandler rewardedAdHandler;
     [SerializeField] private BannerAdHandler bannerAdHandler;
-    [SerializeField] private UMPManager umpManager;
 
     public static AdsManager Instance => instance;
     private static AdsManager instance;
@@ -26,15 +25,18 @@ public class AdsManager : MonoBehaviour
     }
     private void Start()
     {
-        umpManager.RequestConsent(canRequestAds =>
+        UMPManager.RequestConsent(canRequestAds =>
         {
-            if(!canRequestAds)
+            ATTManager.RequestAuthorization(() =>
             {
-                Debug.LogWarning("Ads cannot be requested.");
-                return;
-            }
+                if (!canRequestAds)
+                {
+                    Debug.LogWarning("Ads cannot be requested.");
+                    return;
+                }
 
-            Initialize();
+                Initialize();
+            });
         });
     }
 

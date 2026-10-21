@@ -50,6 +50,12 @@ public class ResultUIController : UIControllerBase
         }
     }
     /// <summary>
+    /// ランキング画面を開くボタンが押された際のイベント    </summary>
+    public void OnClickOpenRanking()
+    {
+        GameCenterManager.Instance.ShowLeaderboard();
+    }
+    /// <summary>
     /// （タイトルへ）戻るボタンが押された際のイベント    </summary>
     public void OnClickReturn()
     {

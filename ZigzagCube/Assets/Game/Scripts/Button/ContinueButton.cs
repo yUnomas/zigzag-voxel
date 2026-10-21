@@ -4,12 +4,12 @@ public class ContinueButton : UIButtonController
 {
     private void Start()
     {
-        // リワード広告の表示不可の場合はボタンを非表示
-        if(AdsManager.Instance.CanShowAd(AdType.Rewarded))
+        // ボタンを非表示
+        gameObject.SetActive(false);
+        // リワード広告の表示可の場合にボタンを表示
+        if (AdsManager.Instance.CanShowAd(AdType.Rewarded))
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
-        // ボタンを表示
-        gameObject.SetActive(true);
     }
 }

@@ -4,12 +4,16 @@ public class ResultManager : SceneManagerBase<ResultManager>
 {
     private ResultData resultData;
     private ResultUIController resultUI;
+    private AdsManager adsManager;
 
     protected override void OnInit()
     {
+        // リザルトUI表示
         resultUI = FindAnyObjectByType<ResultUIController>();
         resultUI.Show();
-        AdsManager.Instance.ShowAd(AdType.Banner);
+        // 広告
+        if (adsManager == null) adsManager = AdsManager.Instance;
+        adsManager.ShowAd(AdType.Banner);
     }
     protected override void OnStart()
     {
@@ -18,7 +22,7 @@ public class ResultManager : SceneManagerBase<ResultManager>
     }
     protected override void OnUninit()
     {
-        AdsManager.Instance.HideAd(AdType.Banner);
+        adsManager.HideAd(AdType.Banner);
     }
 
     /// <summary>
@@ -29,7 +33,7 @@ public class ResultManager : SceneManagerBase<ResultManager>
     public void BackToTile()
     {
         // 広告の表示有無でシーン遷移のアニメーション切り替え
-        if (AdsManager.Instance.IsInterstitialTiming())
+        if (adsManager.CanShowAd(AdType.Interstitial))
         {
             ChangeScene(SceneType.Title, false, "GameplayScene");
         }

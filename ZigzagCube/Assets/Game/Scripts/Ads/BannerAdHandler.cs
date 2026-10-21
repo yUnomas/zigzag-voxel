@@ -1,20 +1,13 @@
 ﻿using GoogleMobileAds.Api;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BannerAdHandler : MonoBehaviour
 {
     private BannerView bannerView;
     private AdSize adaptiveSize;
+    private string unitId;
 
-    private void Awake()
-    {
-#if UNITY_IOS || UNITY_ANDROID
-        /// 端末に適した広告サイズを取得
-        int deviceWidth = MobileAds.Utils.GetDeviceSafeWidth();
-        adaptiveSize =
-            AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(deviceWidth);
-#endif
-    }
     private void OnDestroy()
     {
         Destroy();
@@ -47,20 +40,50 @@ public class BannerAdHandler : MonoBehaviour
         };
     }
 
+    public void Initialize(AdConfig config)
+    {
+        if (config != null) unitId = config.BannerAdUnitId;
+#if UNITY_IOS || UNITY_ANDROID
+        /// 端末に適した広告サイズを取得
+        int deviceWidth = MobileAds.Utils.GetDeviceSafeWidth();
+        adaptiveSize =
+            AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(deviceWidth);
+
+        Load();
+#endif
+    }
     public void Load()
     {
         Destroy();
 
 #if UNITY_IOS || UNITY_ANDROID
-        bannerView = new BannerView(AdsManager.Instance.Config.BannerAdUnitId, adaptiveSize, AdPosition.Top);
+        bannerView = new BannerView(unitId, adaptiveSize, AdPosition.Top);
+        if(bannerView == null)
+        {
+            Debug.LogWarning("バナー広告の生成失敗");
+            return;
+        }
+
+        Debug.LogWarning("バナー広告の生成成功");
         RegisterAdEvents();
         bannerView.Hide();
         bannerView.LoadAd(new AdRequest());
 #endif
     }
+    public bool CanShow()
+    {
+        if(bannerView == null)
+        {
+            Debug.LogWarning("バナー広告の表示不可");
+            return false;
+        }
+        return true;
+    }
     public void Show()
     {
-        bannerView?.Show();
+        if (!CanShow()) return;
+
+        bannerView.Show();
     }
     public void Hide()
     {

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: AdConfig_ZigzagVoxel
   m_EditorClassIdentifier: 
   useProductionAds: 0
-  bannerProductionAdUnitID_IOS: ca-app-pub-1584476967120231/6849389423
-  bannerProductionAdUnitID_Android: 
+  bannerProductionAdUnitIdForIOS: ca-app-pub-1584476967120231/6849389423
+  bannerProductionAdUnitIdForAndroid: 
   interstitialAdDisplayInterval: 3
-  interstitialProductionAdUnitID_IOS: ca-app-pub-1584476967120231/8387724078
-  interstitialProductionAdUnitID_Android: 
-  rewardedProductionAdUnitID_IOS: ca-app-pub-1584476967120231/9475552768
-  rewardedProductionAdUnitID_Android: 
+  interstitialProductionAdUnitIdForIOS: ca-app-pub-1584476967120231/8387724078
+  interstitialProductionAdUnitIdForAndroid: 
+  rewardedProductionAdUnitIdForIOS: ca-app-pub-1584476967120231/9475552768
+  rewardedProductionAdUnitIdForAndroid: 

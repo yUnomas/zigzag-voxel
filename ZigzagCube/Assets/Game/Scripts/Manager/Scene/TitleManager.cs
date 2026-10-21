@@ -3,6 +3,7 @@
 public class TitleManager : SceneManagerBase<TitleManager>
 {
     private TitleUIController titleUI;
+    private AdsManager adsManager;
 
     protected override void OnInit()
     {
@@ -10,8 +11,12 @@ public class TitleManager : SceneManagerBase<TitleManager>
         titleUI = FindAnyObjectByType<TitleUIController>();
         titleUI.Show();
         // 広告
-        AdsManager.Instance.TryShowAd(AdType.Interstitial);
-        AdsManager.Instance.LoadAd(AdType.Banner);
+        if (adsManager == null) adsManager = AdsManager.Instance;
+        if (adsManager.CanShowAd(AdType.Interstitial))
+        {
+            adsManager.ShowAd(AdType.Interstitial);
+        }
+        adsManager.LoadAd(AdType.Banner);
     }
     protected override void OnStart()
     {

@@ -65,9 +65,9 @@ public class AdsManager : MonoBehaviour
             }
 
             Debug.Log("Google Mobile Ads initialized");
-            interstitialAdHandler.Load();
-            rewardedAdHandler.Load();
-            bannerAdHandler.Load();
+            interstitialAdHandler.Initialize(config);
+            rewardedAdHandler.Initialize(config);
+            bannerAdHandler.Initialize(config);
         });
     }
     /// <summary>
@@ -93,18 +93,31 @@ public class AdsManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// 表示可能な場合のみ広告を表示    </summary>
-    public void TryShowAd(AdType type)
+    /// 広告が表示可能か判定    </summary>
+    public bool CanShowAd(AdType type)
     {
         switch (type)
         {
             case AdType.Interstitial:
                 {
-                    if(IsInterstitialTiming()) interstitialAdHandler.Show();
+                    if (interstitialAdHandler.CanShow() && IsInterstitialTiming()) return true;
+                }
+                break;
+            case AdType.Rewarded:
+                {
+                    if (rewardedAdHandler.CanShow()) return true;
+                }
+                break;
+            case AdType.Banner:
+                {
+                    if(bannerAdHandler.CanShow()) return true;
                 }
                 break;
         }
+        return false;
     }
+    /// <summary>
+    /// 特定の広告を非表示    </summary>
     public void HideAd(AdType type)
     {
         switch (type)

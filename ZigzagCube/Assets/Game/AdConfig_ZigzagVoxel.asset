@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e5fd2dd4ed76948998892fe9a41bd7, type: 3}
   m_Name: AdConfig_ZigzagVoxel
   m_EditorClassIdentifier: 
-  useProductionAds: 0
+  useProductionAds: 1
   bannerProductionAdUnitIdForIOS: ca-app-pub-1584476967120231/6849389423
   bannerProductionAdUnitIdForAndroid: 
   interstitialAdDisplayInterval: 3

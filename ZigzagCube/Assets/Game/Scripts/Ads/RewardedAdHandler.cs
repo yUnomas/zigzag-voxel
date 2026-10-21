@@ -6,7 +6,8 @@ public class RewardedAdHandler : MonoBehaviour
 {
     private RewardedAd rewardedAd;
     private Action onRewarded;
-    
+    private string unitId;
+
     private bool isRewardEarned;
     private bool isAdClosed;
     private bool isLoading;
@@ -63,6 +64,13 @@ public class RewardedAdHandler : MonoBehaviour
         };
     }
 
+    public void Initialize(AdConfig config)
+    {
+        if (config != null) unitId = config.RewardedAdUnitId;
+#if UNITY_IOS || UNITY_ANDROID
+        Load();
+#endif
+    }
     public void Load()
     {
         if(isLoading) return;
@@ -72,7 +80,7 @@ public class RewardedAdHandler : MonoBehaviour
 
 #if UNITY_IOS || UNITY_ANDROID
         // リワード広告のリクエスト送信
-        RewardedAd.Load(AdsManager.Instance.Config.RewardedAdUnitId, new AdRequest(), async (RewardedAd ad, LoadAdError error) =>
+        RewardedAd.Load(unitId, new AdRequest(), async (RewardedAd ad, LoadAdError error) =>
         {
             await Awaitable.MainThreadAsync();
 
@@ -84,7 +92,7 @@ public class RewardedAdHandler : MonoBehaviour
                 ad?.Destroy();
                 return;
             }
-            
+
             Debug.Log("リワード広告の読み込み完了");
             rewardedAd = ad;
             RegisterAdEvents();
@@ -93,13 +101,18 @@ public class RewardedAdHandler : MonoBehaviour
         isLoading = false;
 #endif
     }
-    public void Show()
+    public bool CanShow()
     {
         if (rewardedAd == null || !rewardedAd.CanShowAd())
         {
             Debug.LogWarning("リワード広告の表示不可");
-            return;
+            return false;
         }
+        return true;
+    }
+    public void Show()
+    {
+        if (!CanShow()) return;
 
         isRewardEarned = false;
         isAdClosed = false;

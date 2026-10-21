@@ -39,8 +39,10 @@ public static class UMPManager
                 return;
             }
 
-            ConsentForm.LoadAndShowConsentFormIfRequired((FormError formError) =>
+            ConsentForm.LoadAndShowConsentFormIfRequired(async (FormError formError) =>
             {
+                await Awaitable.MainThreadAsync();
+
                 if (formError != null)
                 {
                     // Consent gathering failed.
@@ -57,8 +59,10 @@ public static class UMPManager
     }
     public static void ShowPrivacyOptions()
     {
-        ConsentForm.ShowPrivacyOptionsForm(error =>
+        ConsentForm.ShowPrivacyOptionsForm(async error =>
         {
+            await Awaitable.MainThreadAsync();
+
             if (error != null)
             {
                 Debug.LogWarning("UMP Privacy Options Error: " + error.Message);

@@ -1,0 +1,20 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.csproj" />
+  <Project Path="VoxelBusters.EssentialKit.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.Editor.NativePlugins.csproj" />
+  <Project Path="VoxelBusters.EssentialKit.iOSModule.csproj" />
+  <Project Path="VoxelBusters.EssentialKit.Demo.csproj" />
+  <Project Path="VoxelBusters.EssentialKit.Editor.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.NativePlugins.csproj" />
+  <Project Path="VoxelBusters.EssentialKit.AndroidModule.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.NativePlugins.AndroidModule.csproj" />
+  <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="VoxelBusters.EssentialKit.SimulatorModule.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.Editor.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.Editor.Experimental.csproj" />
+  <Project Path="VoxelBusters.EssentialKit.Editor.Build.iOSModule.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.Parser.csproj" />
+  <Project Path="VoxelBusters.CoreLibrary.NativePlugins.iOSModule.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+</Solution>

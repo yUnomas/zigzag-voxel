@@ -4,6 +4,7 @@ using UnityEngine;
 public class SettingsUIController : UIControllerBase
 {
     [SerializeField] private GameObject privacyOptionsButton;
+    [SerializeField] private GameObject creditsPanel;
 
     private PlayerNameField playerNameField;
     private SaveDataManager saveDataManager;
@@ -26,6 +27,14 @@ public class SettingsUIController : UIControllerBase
     {
         // UMPの同意状態によって表示状態を更新
         privacyOptionsButton.SetActive(UMPManager.IsPrivacyOptionsRequired());
+    }
+    public void ShowCredits()
+    {
+        creditsPanel.SetActive(true);
+    }
+    public void HideCredits()
+    {
+        creditsPanel.SetActive(false);
     }
     public void OnClickPrivacyOptions()
     {
